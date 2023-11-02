@@ -1,0 +1,6 @@
+train: /home/zhangyang/yolov5-v7.0/datasets/number1/train_list.txt
+val: /home/zhangyang/yolov5-v7.0/datasets/number1/val_list.txt
+
+nc: 1
+
+names: ['number meter']

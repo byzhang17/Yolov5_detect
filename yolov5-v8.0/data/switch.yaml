@@ -1,0 +1,6 @@
+train: /home/zhangyang/yolov5-v7.0/datasets/switch/train_list.txt
+val: /home/zhangyang/yolov5-v7.0/datasets/switch/val_list.txt
+
+nc: 1
+
+names: ['switch']

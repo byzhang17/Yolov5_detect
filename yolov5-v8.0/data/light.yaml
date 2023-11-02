@@ -1,0 +1,6 @@
+train: /home/zhangyang/yolov5-v7.0/datasets/light/train_list.txt
+val: /home/zhangyang/yolov5-v7.0/datasets/light/val_list.txt
+
+nc: 4
+
+names: ['white', 'red', 'green', 'yellow']
