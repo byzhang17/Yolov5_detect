@@ -53,22 +53,33 @@ from utils.torch_utils import select_device, smart_inference_mode
 
 from flask import Flask, jsonify, request
 
+
+
 app = Flask(__name__)
 
-path_light = sys.argv[1]  # 灯光的wight路径
-path_switch = sys.argv[2]  # 开关wight存放路径
-path_number = sys.argv[3]  # 指针wight存放路径
-path_pointer = sys.argv[4]  # 数字wight存放路径
+# path_light = sys.argv[1]  # 灯光的wight路径
+# path_switch = sys.argv[2]  # 开关wight存放路径
+# path_number = sys.argv[3]  # 指针wight存放路径
+# path_pointer = sys.argv[4]  # 数字wight存放路径
 
+script_dir = sys.argv[1] #os.path.dirname(os.path.abspath(__file__))
+
+ROOT = script_dir.split("/")[-1]
+
+path_light = script_dir + "/runs/train/exp26/weights/best.pt"  # 灯光的wight路径
+path_switch = script_dir + "/runs/train/exp28/weights/best.pt"  # 开关wight存放路径
+path_number = script_dir + "/runs/train/exp25/weights/best.pt"  # 指针wight存放路径
+path_pointer = script_dir + "/runs/train/exp29/weights/best.pt"  # 数字wight存放路径
 
 # path_result = sys.argv[5]  # 结果存放路径
-
+print(ROOT)
+print(script_dir)
 
 @smart_inference_mode()
 def run(
-        weights=ROOT / 'yolov5s.pt',  # model path or triton URL
-        source=ROOT / 'data/images',  # file/dir/URL/glob/screen/0(webcam)
-        data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
+        weights=ROOT + '/' + 'yolov5s.pt',  # model path or triton URL
+        source=ROOT + '/data/images',  # file/dir/URL/glob/screen/0(webcam)
+        data=ROOT + '/data/coco128.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
         conf_thres=0.25,  # confidence threshold
         iou_thres=0.45,  # NMS IOU threshold
@@ -84,7 +95,7 @@ def run(
         augment=False,  # augmented inference
         visualize=False,  # visualize features
         update=False,  # update all models
-        project=ROOT / 'runs/detect',  # save results to project/name
+        project=ROOT + '/runs/detect',  # save results to project/name
         name='exp',  # save results to project/name
         exist_ok=False,  # existing project/name ok, do not increment
         line_thickness=3,  # bounding box thickness (pixels)
@@ -284,7 +295,7 @@ class DetectAPI:
                  conf_thres=0.55,
                  iou_thres=0.45, max_det=1000, device='cpu', view_img=False, save_txt=False,
                  save_conf=False, save_crop=False, nosave=False, classes=None, agnostic_nms=False, augment=False,
-                 visualize=False, update=False, project='D:/code/yolov5-v8.0/runs/detect', name='myexp', exist_ok=False,
+                 visualize=False, update=False, name='myexp', exist_ok=False,
                  line_thickness=1,
                  hide_labels=False, hide_conf=False, half=False, dnn=False, vidstride=1):
 
@@ -736,4 +747,6 @@ def main(opt):
 if __name__ == "__main__":
     # opt = parse_opt()
     # main(opt)
-    app.run(debug=True, host='127.0.0.1', port=3333)
+    app.run(debug= True ,host='0.0.0.0', port=3333)
+
+
